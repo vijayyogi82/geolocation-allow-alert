@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location Permission</title>
+</head>
+
+<body>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        console.log('Location access granted.');
+                        console.log('Latitude:', position.coords.latitude);
+                        console.log('Longitude:', position.coords.longitude);
+                    },
+                    (error) => {
+                        switch (error.code) {
+                            case error.PERMISSION_DENIED:
+                                console.error('User denied the request for Geolocation.');
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                console.error('Location information is unavailable.');
+                                break;
+                            case error.TIMEOUT:
+                                console.error('The request to get user location timed out.');
+                                break;
+                            case error.UNKNOWN_ERROR:
+                                console.error('An unknown error occurred.');
+                                break;
+                        }
+                    }
+                );
+            } else {
+                console.error('Geolocation is not supported by this browser.');
+            }
+        });
+    </script>
+</body>
+
+</html>
